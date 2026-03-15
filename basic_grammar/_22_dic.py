@@ -29,3 +29,12 @@ print(names)
 scores = score_dic.values()
 print(scores)
 
+
+# 有序字典 OrderedDict
+from collections import OrderedDict
+ordered_score_dic = OrderedDict()
+ordered_score_dic["zhangsan"] = 90
+ordered_score_dic["lisi"] = 80
+ordered_score_dic["wangwu"] = 70
+print(ordered_score_dic)
+

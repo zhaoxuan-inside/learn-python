@@ -21,3 +21,5 @@ print(((" " + content).lstrip()))
 # 删除字符串首尾的空格
 print(len(((" " + content + " ").strip())))
 
+# 字符串的分割
+print(content.split(" "))

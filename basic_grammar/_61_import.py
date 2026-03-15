@@ -34,4 +34,14 @@ _60_module.say_other()
 
 # 导入模块的部分方法
 from _60_module import say_hello as hello
-hello()
+
+# 导入类
+from _51_class import Student, Class, Score
+class_info = Class(1, '一年级', '一班')
+scores = [Score(1, '语文', 90), Score(2, '数学', 80), Score(3, '英语', 70)]
+student = Student(1, 'lisi', 18, 'female', '2021001', class_info, scores)
+student.study('math')
+student.show_scores()
+student.action("running")
+student.sleep()
+student.eat('banana')
