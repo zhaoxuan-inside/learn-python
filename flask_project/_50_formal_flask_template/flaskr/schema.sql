@@ -1,0 +1,35 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS post;
+
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    create_datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE post (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    author_id INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    body TEXT NOT NULL,
+    create_datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    update_datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TRIGGER trigger_user_update_datetime 
+AFTER UPDATE ON user
+BEGIN
+    UPDATE user
+    SET update_datetime = CURRENT_TIMESTAMP 
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER trigger_post_update_datetime 
+AFTER UPDATE ON post
+BEGIN
+    UPDATE post
+    SET update_datetime = CURRENT_TIMESTAMP 
+    WHERE id = NEW.id;
+END;
