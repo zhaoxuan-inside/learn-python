@@ -1,4 +1,4 @@
-import sqlite3
+import mysql
 from datetime import datetime
 
 import click
@@ -13,15 +13,17 @@ def _convert_timestamp(ts):
     # SQLite 存储的时间格式: "2024-03-23 12:34:56"
     return datetime.strptime(ts.decode(), "%Y-%m-%d %H:%M:%S")
 
-sqlite3.register_converter("timestamp", _convert_timestamp)
+mysql.register_converter("timestamp", _convert_timestamp)
 
 def get_db():
     if 'db' not in g:
-        g.db = sqlite3.connect(
+        g.db = mysql.connect(
             current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
+            # 用来处理 TIMESTAMP 类型的字段
+            detect_types=mysql.PARSE_DECLTYPES
         )
-        g.db.row_factory = sqlite3.Row
+        # 将 SQLite 数据库连接的默认行工厂设置为 sqlite3.Row，使查询返回的行不再是普通元组，而是支持通过列名访问的类似字典的对象。
+        g.db.row_factory = mysql.Row
 
     return g.db
 

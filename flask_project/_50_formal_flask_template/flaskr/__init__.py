@@ -27,14 +27,17 @@ def create_app(test_config=None):
     def hello():
         return 'hello, world!'
 
-    from . import db
-    db.init_app(app)
+    from . import db_sqlite
+    db_sqlite.init_app(app)
 
     from . import auth
-    app.register_blueprint(auth.bp)
-
     from . import blog
+
+    # 注册蓝图,多个注册的蓝图按照顺序执行
+    # 
+    app.register_blueprint(auth.bp)
     app.register_blueprint(blog.bp)
+    
     app.add_url_rule('/', endpoint='index')
     
     return app
